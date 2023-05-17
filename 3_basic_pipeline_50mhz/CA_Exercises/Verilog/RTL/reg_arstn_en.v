@@ -207,7 +207,7 @@ module reg_arstn_en_EX_MEM#(
 		output memwrite_EX_MEM_output,	
 		output memread_EX_MEM_output,	
 		output membranch_EX_MEM_output,
-		output memjump_EX_MEM_output,
+		output memjump_EX_MEM_output,	
 		output [4:0] inst2_EX_MEM_output
    );
 
