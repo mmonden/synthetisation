@@ -82,19 +82,19 @@ module reg_arstn_en_ID_EX #(
 
 	reg temp_writeback1, temp_writeback2, temp_memwrite, temp_memread, temp_membranch, temp_memjump, temp_alusrc;
 	reg [1:0] temp_aluop;
-	reg [4:0] temp_dreg1, temp_dreg2, temp_inst1, temp_inst2;
-	reg [63:0] temp_pc, temp_inst_imm;
+	reg [4:0] temp_inst1, temp_inst2;
+	reg [63:0] temp_dreg1, temp_dreg2, temp_pc, temp_inst_imm;
 
 	reg r_writeback1, r_writeback2, r_memwrite, r_memread, r_membranch, r_memjump, r_alusrc;
 	reg [1:0] r_aluop;
-	reg [4:0] r_dreg1, r_dreg2, r_inst1, r_inst2;
-	reg [63:0] r_pc, r_inst_imm;
+	reg [4:0] r_inst1, r_inst2;
+	reg [63:0] r_dreg1, r_dreg2, r_pc, r_inst_imm;
 
 	always@(posedge clk, negedge arst_n) begin
 		if(arst_n==0)begin
 			r_writeback1 <= PRESET_VAL;
 			r_writeback2 <= PRESET_VAL;
-			r_memwrite <= PRESET_VAL;// Configurable register for variable width with enable
+			r_memwrite <= PRESET_VAL;
 			r_memread <= PRESET_VAL;
 			r_membranch <= PRESET_VAL;
 			r_memjump <= PRESET_VAL;

@@ -198,8 +198,6 @@ reg_arstn_en_EX_MEM #(
 	.inst2_EX_MEM_output		(inst2_EX_MEM)
 );
 
-// wire [31:0] alu_out_MEM_WB;
-
 reg_arstn_en_MEM_WB #(
 	.DATA_W(32)
 ) signal_pipe_MEM_WB (
@@ -240,7 +238,7 @@ register_file #(
 ) register_file(
 	.clk      (clk               ),
 	.arst_n   (arst_n            ),
-	.reg_write(reg_write_MEM_WB         ),
+	.reg_write(reg_write_MEM_WB        ),
 	.raddr_1  (instruction_IF_ID[19:15]),
 	.raddr_2  (instruction_IF_ID[24:20]),
 	.waddr    (inst2_MEM_WB ),
@@ -290,11 +288,9 @@ branch_unit#(
 )branch_unit(
 	.updated_pc         (current_pc_ID_EX	),
 	.immediate_extended (immediate_extended_ID_EX),
-	.branch_pc          (branch_pc	),
-	.jump_pc            (jump_pc		)
+	.branch_pc          (branch_pc			),
+	.jump_pc            (jump_pc			)
 );
 
 
 endmodule
-
-
