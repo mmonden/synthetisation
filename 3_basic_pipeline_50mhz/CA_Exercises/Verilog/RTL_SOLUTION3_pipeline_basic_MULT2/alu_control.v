@@ -8,22 +8,22 @@ module alu_control(
 	output reg [3:0] alu_control
    );
 
-   
-   //The ALUOP codes can be found
-   //in chapter 4.4 of the book.
-   parameter [1:0] ADD_OPCODE    = 2'b00;
-   parameter [1:0] SUB_OPCODE    = 2'b01;
-   parameter [1:0] R_TYPE_OPCODE = 2'b10;
 
-   //The ALU control codes can be found
-   //in chapter 4.4 of the book.
-   parameter [3:0] AND_OP        = 4'd0;
-   parameter [3:0] OR_OP         = 4'd1;
-   parameter [3:0] ADD_OP        = 4'd2;
-   parameter [3:0] SLL_OP        = 4'd3;
-   parameter [3:0] SRL_OP        = 4'd4;
-   parameter [3:0] SUB_OP        = 4'd6;
-   parameter [3:0] SLT_OP        = 4'd7;
+	//The ALUOP codes can be found
+	//in chapter 4.4 of the book.
+	parameter [1:0] ADD_OPCODE    = 2'b00;
+	parameter [1:0] SUB_OPCODE    = 2'b01;
+	parameter [1:0] R_TYPE_OPCODE = 2'b10;
+
+	//The ALU control codes can be found
+	//in chapter 4.4 of the book.
+	parameter [3:0] AND_OP        = 4'd0;
+	parameter [3:0] OR_OP         = 4'd1;
+	parameter [3:0] ADD_OP        = 4'd2;
+	parameter [3:0] SLL_OP        = 4'd3;
+	parameter [3:0] SRL_OP        = 4'd4;
+	parameter [3:0] SUB_OP        = 4'd6;
+	parameter [3:0] SLT_OP        = 4'd7;
 	parameter [3:0] MUL_OP        = 4'd8;
 
 
