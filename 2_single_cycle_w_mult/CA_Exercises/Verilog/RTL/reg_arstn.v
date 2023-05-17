@@ -13,7 +13,7 @@ parameter integer PRESET_VAL = 0
 reg [DATA_W-1:0] r,nxt;
 
 always@(posedge clk, negedge arst_n)begin
-   if(arst_n==0)begin
+   if(arst_n==0) begin
       r <= PRESET_VAL;
    end else begin
       r <= nxt;
@@ -27,3 +27,5 @@ end
 assign dout = r;
 
 endmodule
+
+

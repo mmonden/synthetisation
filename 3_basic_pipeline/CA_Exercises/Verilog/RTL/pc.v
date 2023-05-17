@@ -71,10 +71,6 @@ module pc#(
 
    
    always@(*) updated_pc = current_pc+PC_INCREASE;
-
-
-   
-
 endmodule
 
 

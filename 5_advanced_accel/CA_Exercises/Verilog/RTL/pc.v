@@ -15,66 +15,61 @@
 
 
 module pc#(
-   parameter integer DATA_W = 16
-   )(
-      input  wire              clk,
-      input  wire              arst_n,
-      input  wire              enable,
-      input  wire [DATA_W-1:0] branch_pc,
-      input  wire [DATA_W-1:0] jump_pc,  
-      input  wire              zero_flag,
-      input  wire              branch,
-      input  wire              jump,
-      output reg  [DATA_W-1:0] updated_pc,
-      output reg  [DATA_W-1:0] current_pc
-   );
+	parameter integer DATA_W = 16
+	)(
+		input  wire              clk,
+		input  wire              arst_n,
+		input wire              hazard,
+		input  wire              enable,
+		input  wire [DATA_W-1:0] branch_pc,
+		input  wire [DATA_W-1:0] jump_pc,  
+		input  wire              zero_flag,
+		input  wire              branch,
+		input  wire              jump,
+		output reg  [DATA_W-1:0] updated_pc,
+		output reg  [DATA_W-1:0] current_pc
+	);
 
-   localparam  [DATA_W-1:0] PC_INCREASE= {{(DATA_W-3){1'b0}},3'd4};
-  
+	localparam  [DATA_W-1:0] PC_INCREASE= {{(DATA_W-3){1'b0}},3'd4};
 
-   wire [DATA_W-1:0] pc_r,next_pc,next_pc_i;
-   reg               pc_src;
-      
+	wire [DATA_W-1:0] pc_r,next_pc,next_pc_i;
+	reg               pc_src;
 
-   always@(*) pc_src = zero_flag & branch; 
-      
-   mux_2#(
-      .DATA_W(DATA_W)
-   ) mux_branch( 
-      .input_a (branch_pc ),
-      .input_b (updated_pc),
-      .select_a(pc_src    ),
-      .mux_out (next_pc_i )
-   );
-   
-   mux_2#(
-      .DATA_W(DATA_W)
-   ) mux_jump( 
-      .input_a (jump_pc   ),
-      .input_b (next_pc_i ),
-      .select_a(jump      ),
-      .mux_out (next_pc   )
-   );
-   
+	always@(*) pc_src = zero_flag & branch; 
 
+	mux_2#(
+		.DATA_W(DATA_W)
+	) mux_branch( 
+		.input_a (branch_pc ),
+		.input_b (updated_pc),
+		.select_a(pc_src    ),
+		.mux_out (next_pc_i )
+	);
+	
+	mux_2#(
+		.DATA_W(DATA_W)
+	) mux_jump( 
+		.input_a (jump_pc   ),
+		.input_b (next_pc_i ),
+		.select_a(jump      ),
+		.mux_out (next_pc   )
+	);
+	
+	reg_arstn_en_hazards#(
+		.DATA_W(DATA_W),
+		.PRESET_VAL('b0)
+	) pc_register(
+		.clk   (clk       ),
+		.arst_n(arst_n		),
+		.hazard(hazard		),
+		.din   (next_pc   ),
+		.en    (enable    ),
+		.dout  (current_pc)
+	);
 
-   reg_arstn_en#(
-      .DATA_W(DATA_W),
-      .PRESET_VAL('b0)
-   ) pc_register(
-      .clk   (clk       ),
-      .arst_n(arst_n    ),
-      .din   (next_pc   ),
-      .en    (enable    ),
-      .dout  (current_pc)
-   );
-
-   
-   always@(*) updated_pc = current_pc+PC_INCREASE;
-
-
-   
-
+	always@(*) begin
+		updated_pc = current_pc+PC_INCREASE;
+	end
 endmodule
 
 

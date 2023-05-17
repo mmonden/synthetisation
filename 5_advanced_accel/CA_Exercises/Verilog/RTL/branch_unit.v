@@ -19,10 +19,7 @@ module branch_unit#(
 
    localparam  [DATA_W-1:0] PC_INCREASE= {{(DATA_W-3){1'b0}},3'd4};
 
-   always@(*) branch_pc           = updated_pc + immediate_extended - PC_INCREASE;
-   always@(*) jump_pc             = updated_pc + immediate_extended - PC_INCREASE;
+   always@(*) branch_pc           = updated_pc + immediate_extended;// - PC_INCREASE;
+   always@(*) jump_pc             = updated_pc + immediate_extended;// - PC_INCREASE;
   
 endmodule
-
-
-

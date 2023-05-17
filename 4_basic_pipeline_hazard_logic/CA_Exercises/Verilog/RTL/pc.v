@@ -56,8 +56,6 @@ module pc#(
       .mux_out (next_pc   )
    );
    
-
-
    reg_arstn_en#(
       .DATA_W(DATA_W),
       .PRESET_VAL('b0)
@@ -69,12 +67,7 @@ module pc#(
       .dout  (current_pc)
    );
 
-   
    always@(*) updated_pc = current_pc+PC_INCREASE;
-
-
-   
-
 endmodule
 
 

@@ -69,8 +69,8 @@ pc #(
 ) program_counter (
 	.clk       (clk       ),
 	.arst_n    (arst_n    ),
-	.branch_pc (branch_pc ),
-	.jump_pc   (jump_pc   ),
+	.branch_pc (branch_pc ),	// TODO: aanpassen?
+	.jump_pc   (jump_pc   ),	//	same
 	.zero_flag (zero_flag_EX_MEM ),
 	.branch    (branch_EX_MEM    ),
 	.jump      (jump_EX_MEM    ),
