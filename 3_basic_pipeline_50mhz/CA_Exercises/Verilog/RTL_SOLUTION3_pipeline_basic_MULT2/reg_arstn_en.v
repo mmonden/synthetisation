@@ -90,7 +90,7 @@ module reg_arstn_en_ID_EX #(
 	reg [4:0] r_dreg1, r_dreg2, r_inst1, r_inst2;
 	reg [63:0] r_pc, r_inst_imm;
 
-	always@(*) begin
+	always@(posedge clk, negedge arst_n) begin
 		if(arst_n==0)begin
 			r_writeback1 <= PRESET_VAL;
 			r_writeback2 <= PRESET_VAL;
