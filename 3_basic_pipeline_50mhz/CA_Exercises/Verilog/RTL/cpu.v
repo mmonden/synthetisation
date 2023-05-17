@@ -52,6 +52,11 @@ wire [      63:0] regfile_wdata, mem_data, alu_out,
 
 wire signed [63:0] immediate_extended;
 
+wire [31:0]	instruction_IF_ID, regfile_rdata_1_ID_EX, regfile_rdata_2_ID_EX, inst1_ID_EX, regfile_rdata_2_EX_MEM, mem_data_MEM_WB;
+wire [63:0] current_pc_IF_ID, immediate_extended_ID_EX, current_pc_ID_EX, branch_pc_EX_MEM, alu_out_EX_MEM, alu_out_MEM_WB;
+wire [1:0] alu_op_ID_EX;
+wire [4:0] inst2_ID_EX, inst2_EX_MEM, inst2_MEM_WB;
+
 immediate_extend_unit immediate_extend_u(
 	 .instruction         (instruction_IF_ID),
 	 .immediate_extended  (immediate_extended)
@@ -103,11 +108,6 @@ sram_BW64 #(
 	.wdata_ext(wdata_ext_2    ),
 	.rdata_ext(rdata_ext_2    )
 );
-
-wire [31:0]	instruction_IF_ID, regfile_rdata_1_ID_EX, regfile_rdata_2_ID_EX, inst1_ID_EX, regfile_rdata_2_EX_MEM, mem_data_MEM_WB;
-wire [63:0] current_pc_IF_ID, immediate_extended_ID_EX, current_pc_ID_EX, branch_pc_EX_MEM, alu_out_EX_MEM, alu_out_MEM_WB;
-wire [1:0] alu_op_ID_EX;
-wire [4:0] inst2_ID_EX, inst2_EX_MEM, inst2_MEM_WB;
 
 reg_arstn_en_IF_ID #(
 	.DATA_W(32)
