@@ -76,7 +76,7 @@ module branch_history_table(
 		mem_sel_ext = 1'b0;
 	end
 
-//    genvar index_depth;
+	genvar index_depth;
 	generate
 		for (index_depth = 0; index_depth < N_MEMS; index_depth = index_depth+1) begin: process_for_mem
 			always@(*) begin
