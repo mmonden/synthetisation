@@ -59,7 +59,7 @@ wire [4:0] inst2_ID_EX, inst2_EX_MEM, inst2_MEM_WB, IF_ID_rs1, IF_ID_rs2;
 wire [1:0]	mux_control_A, mux_control_B, alu_op_tomux;
 wire [63:0]	mux_output_A, mux_output_B;
 
-wire flush_ID_EX;
+wire flush_ID_EX, BHT_signal, prediction;
 
 immediate_extend_unit immediate_extend_u(
 	 .instruction         (instruction_IF_ID),
@@ -74,18 +74,27 @@ pc #(
 	.hazard		(PCWrite),
 	.branch_pc (branch_pc ),
 	.jump_pc   (jump_pc   ),
-	.zero_flag (zero_flag_imposter_immediately_caculated_in_ID_stage ),
+	.zero_flag (zero_flag_imposter_immediately_caculated_in_ID_stage),
 	.branch    (branch    ),
 	.jump      (jump    ),
 	.current_pc(current_pc),
 	.enable    (enable    ),
-	.updated_pc(updated_pc)
+	.updated_pc(updated_pc),
+	.was_taken(BHT_signal)
 );
 
 check_equality brc (
 	.regfile_rdata_1(regfile_rdata_1),
 	.regfile_rdata_2(regfile_rdata_2),
 	.eq(zero_flag_imposter_immediately_caculated_in_ID_stage)
+);
+
+branch_history_table BHT (
+	.clk		(clk),
+	.read_addr	(current_pc[4:0]),
+	.write_addr	(current_pc_IF_ID[4:0]),
+	.was_taken	(BHT_signal),
+	.prediction	(prediction)
 );
 
 sram_BW32 #(
@@ -119,13 +128,6 @@ sram_BW64 #(
 	.wdata_ext(wdata_ext_2    ),
 	.rdata_ext(rdata_ext_2    )
 );
-
-// mux_2 mux_flush (
-// 	.input_a	(),
-// 	.input_b	(),
-// 	.select_a	(flush_ID_EX),
-// 	.mux_out	()
-// );
 
 reg_arstn_en_IF_ID #(
 	.DATA_W(32)

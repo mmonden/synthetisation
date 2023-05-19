@@ -21,8 +21,6 @@
 //Outputs:
 //rdata: Instruction read taking into account the address pointed.
 
-
-
 module sram_BW32#(
    parameter integer ADDR_W      = 9
 ) (

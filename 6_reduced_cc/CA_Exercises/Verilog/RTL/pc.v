@@ -27,7 +27,8 @@ module pc#(
 		input  wire              branch,
 		input  wire              jump,
 		output reg  [DATA_W-1:0] updated_pc,
-		output reg  [DATA_W-1:0] current_pc
+		output reg  [DATA_W-1:0] current_pc,
+		output reg was_taken
 	);
 
 	localparam  [DATA_W-1:0] PC_INCREASE= {{(DATA_W-3){1'b0}},3'd4};
