@@ -90,13 +90,13 @@ module branch_history_table(
 				.web0         ( web0                         ),
 				.addr0        ( addr_i                       ),
 				.din0         (                              ),
-				.dout0        ( data_i[0]          ),
+				.dout0        ( data_i          ),
 				.clk1         ( ~clk                         ),
 				.csb1         ( csb1 | cs_ext_i ),
 				.web1         ( web1                         ),
 				.addr1        ( addr_ext_i                   ),
 				.din1         ( new_pred                    	),
-				.dout1        ( data_ext_i[0]      )
+				.dout1        ( data_ext_i      )
 			);
 		end
 	endgenerate
