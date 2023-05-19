@@ -15,7 +15,7 @@ module branch_history_table(
 	parameter integer SEL_W       = 0;
 	parameter integer N_MEMS      = 1;
 
-	wire[1:0] new_pred;
+	reg[1:0] new_pred;
 	wire wen, wen_ext, ren, ren_ext;
 
 	reg  [      4:0] addr_i, addr_ext_i;
@@ -42,26 +42,26 @@ module branch_history_table(
 		case(data_i)
 			2'b00:
 				if(was_taken)
-					new_pred = 2'b01;
+					new_pred <= 2'b01;
 				else
-					new_pred = 2'b00;
+					new_pred <= 2'b00;
 			2'b01:
 				if(was_taken)
-					new_pred = 2'b11;
+					new_pred <= 2'b11;
 				else
-					new_pred = 2'b00;
+					new_pred <= 2'b00;
 			2'b10:
 				if(was_taken)
-					new_pred = 2'b11;
+					new_pred <= 2'b11;
 				else
-					new_pred = 2'b00;
+					new_pred <= 2'b00;
 			2'b11:
 				if(!was_taken)
-					new_pred = 2'b10;
+					new_pred <= 2'b10;
 				else
-					new_pred = 2'b11;
+					new_pred <= 2'b11;
 			default:
-				new_pred = 2'b00;
+				new_pred <= 2'b00;
 		endcase
 	end
 
