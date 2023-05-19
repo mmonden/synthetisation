@@ -77,27 +77,27 @@ module branch_history_table(
 	end
 
 //    genvar index_depth;
-   generate
-	//   for (index_depth = 0; index_depth < N_MEMS; index_depth = index_depth+1) begin: process_for_mem
+	generate
+		for (index_depth = 0; index_depth < N_MEMS; index_depth = index_depth+1) begin: process_for_mem
 			always@(*) begin
-			   cs_i = (mem_sel == 0) ? 1'b0 : 1'b1;
-			   cs_ext_i = (mem_sel == 0) ? 1'b0 : 1'b1;
+				cs_i = (mem_sel == 0) ? 1'b0 : 1'b1;
+				cs_ext_i = (mem_sel == 0) ? 1'b0 : 1'b1;
 			end
 
 			sky130_sram_2rw_2x32_2 dram_inst(
-			   .clk0         ( ~clk                         ),
-			   .csb0         ( csb0 | cs_i     ),
-			   .web0         ( web0                         ),
-			   .addr0        ( addr_i                       ),
-			   .din0         (                              ),
-			   .dout0        ( data_i[0]          ),
-			   .clk1         ( ~clk                         ),
-			   .csb1         ( csb1 | cs_ext_i ),
-			   .web1         ( web1                         ),
-			   .addr1        ( addr_ext_i                   ),
-			   .din1         ( new_pred                    	),
-			   .dout1        ( data_ext_i[0]      )
+				.clk0         ( ~clk                         ),
+				.csb0         ( csb0 | cs_i     ),
+				.web0         ( web0                         ),
+				.addr0        ( addr_i                       ),
+				.din0         (                              ),
+				.dout0        ( data_i[0]          ),
+				.clk1         ( ~clk                         ),
+				.csb1         ( csb1 | cs_ext_i ),
+				.web1         ( web1                         ),
+				.addr1        ( addr_ext_i                   ),
+				.din1         ( new_pred                    	),
+				.dout1        ( data_ext_i[0]      )
 			);
-	//   end
-   endgenerate
+		end
+	endgenerate
 endmodule
