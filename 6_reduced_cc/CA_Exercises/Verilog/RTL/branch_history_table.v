@@ -19,66 +19,17 @@ module branch_history_table(
 	reg r_prediction;
 	reg[63:0] states;
 
-	// always@(*) begin
-	// 	case(data_i)
-	// 		2'b00:	prediction <= 1'b0;
-	// 		2'b01:	prediction <= 1'b0;
-	// 		2'b10:	prediction <= 1'b1;
-	// 		2'b11:	prediction <= 1'b1;
-	// 		default:	prediction <= 1'b0;
-	// 	endcase
-	// end
-
-	// always@(*) begin
-	// 	case(data_i)
-	// 		2'b00:
-	// 			if(was_taken)
-	// 				new_pred <= 2'b01;
-	// 			else
-	// 				new_pred <= 2'b00;
-	// 		2'b01:
-	// 			if(was_taken)
-	// 				new_pred <= 2'b11;
-	// 			else
-	// 				new_pred <= 2'b00;
-	// 		2'b10:
-	// 			if(was_taken)
-	// 				new_pred <= 2'b11;
-	// 			else
-	// 				new_pred <= 2'b00;
-	// 		2'b11:
-	// 			if(!was_taken)
-	// 				new_pred <= 2'b10;
-	// 			else
-	// 				new_pred <= 2'b11;
-	// 		default:
-	// 			new_pred <= 2'b00;
-	// 	endcase
-	// end
-
 	always@(posedge clk, negedge arst_n)begin
 		if(arst_n==0)begin
 			r_prediction <= 0;
 		end
    	end
 
-	always@(read_addr) begin
-		upper_bit_read = read_addr*2 - 1;
-
-		if(en == 1'b1) begin 
-			case(states[upper_bit_read -: 1])
-				2'b00:	r_prediction <= 1'b0;
-				2'b01:	r_prediction <= 1'b0;
-				2'b10:	r_prediction <= 1'b1;
-				2'b11:	r_prediction <= 1'b1;
-				default:	r_prediction <= 1'b0;
-			endcase
-		end
-	end
-
-	always@(write_addr, was_taken) begin
+	always@(*) begin
 		if(en == 1'b1) begin
 			upper_bit_write = write_addr*2 - 1;
+			upper_bit_read = read_addr*2 - 1;
+
 			case(states[upper_bit_write -: 1])
 				2'b00:
 					if(was_taken)
@@ -102,6 +53,14 @@ module branch_history_table(
 						states[upper_bit_write -: 1] <= 2'b11;
 				default:
 					states[upper_bit_write -: 1] <= 2'b00;
+			endcase
+
+			case(states[upper_bit_read -: 1])
+				2'b00:	r_prediction <= 1'b0;
+				2'b01:	r_prediction <= 1'b0;
+				2'b10:	r_prediction <= 1'b1;
+				2'b11:	r_prediction <= 1'b1;
+				default:	r_prediction <= 1'b0;
 			endcase
 		end
 	end
