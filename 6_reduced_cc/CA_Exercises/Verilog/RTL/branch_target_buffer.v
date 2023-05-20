@@ -45,35 +45,35 @@ module branch_target_buffer#(
 		end
 
       if(en == 1'b1) begin
-			row_index = current_pc[LOWER - 1:0]/4;
+			row_index = prev_pc[LOWER - 1:0]/4;
 
          if(was_taken)
 			   // states[row_index] <= {prev_pc, branch_pc};
             case(row_index)
-               0: state_row0 <= {current_pc, branch_pc};
-               1: state_row1 <= {current_pc, branch_pc};
-               2: state_row2 <= {current_pc, branch_pc};
-               3: state_row3 <= {current_pc, branch_pc};
-               4: state_row4 <= {current_pc, branch_pc};
-               5: state_row5 <= {current_pc, branch_pc};
-               6: state_row6 <= {current_pc, branch_pc};
-               7: state_row7 <= {current_pc, branch_pc};
+               0: state_row0 <= {prev_pc, branch_pc};
+               1: state_row1 <= {prev_pc, branch_pc};
+               2: state_row2 <= {prev_pc, branch_pc};
+               3: state_row3 <= {prev_pc, branch_pc};
+               4: state_row4 <= {prev_pc, branch_pc};
+               5: state_row5 <= {prev_pc, branch_pc};
+               6: state_row6 <= {prev_pc, branch_pc};
+               7: state_row7 <= {prev_pc, branch_pc};
             endcase
 
          if(jumped)
             // states[row_index] <= {prev_pc, jump_pc};
             case(row_index)
-               0: state_row0 <= {current_pc, jump_pc};
-               1: state_row1 <= {current_pc, jump_pc};
-               2: state_row2 <= {current_pc, jump_pc};
-               3: state_row3 <= {current_pc, jump_pc};
-               4: state_row4 <= {current_pc, jump_pc};
-               5: state_row5 <= {current_pc, jump_pc};
-               6: state_row6 <= {current_pc, jump_pc};
-               7: state_row7 <= {current_pc, jump_pc};
+               0: state_row0 <= {prev_pc, jump_pc};
+               1: state_row1 <= {prev_pc, jump_pc};
+               2: state_row2 <= {prev_pc, jump_pc};
+               3: state_row3 <= {prev_pc, jump_pc};
+               4: state_row4 <= {prev_pc, jump_pc};
+               5: state_row5 <= {prev_pc, jump_pc};
+               6: state_row6 <= {prev_pc, jump_pc};
+               7: state_row7 <= {prev_pc, jump_pc};
             endcase
 
-			
+			row_index = curr_pc[LOWER - 1:0]/4;
             // r_predicted_branch_pc <= states[row_index][63:0];
          case(row_index)
             0: if(~|(current_pc ^ state_row0[127:64])) r_predicted_branch_pc <= state_row0[63:0]; else r_predicted_branch_pc <= 0; 
