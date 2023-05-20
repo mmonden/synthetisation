@@ -30,7 +30,7 @@ module branch_target_buffer#(
          if(was_taken)
 			   states[row_index] <= {prev_pc[64-LOWER+63:64], branch_pc};
 
-			if(current_pc[63:LOWER] == states[row_index][64-LOWER+63:64]) 
+			if(~|(current_pc[63:LOWER] ^ states[row_index][64-LOWER+63:64])) 
             r_predicted_branch_pc <= states[row_index][63:0];
          else
             r_predicted_branch_pc <= 0; 
