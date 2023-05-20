@@ -63,7 +63,7 @@ module branch_history_table(
    	end
 
 	always@(read_addr) begin
-		upper_bit_read = read_addr - 1;
+		upper_bit_read = read_addr*2 - 1;
 
 		if(en == 1'b1) begin 
 			case(states[upper_bit_read -: 1])
@@ -78,7 +78,7 @@ module branch_history_table(
 
 	always@(write_addr, was_taken) begin
 		if(en == 1'b1) begin
-			upper_bit_write = write_addr - 1;
+			upper_bit_write = write_addr*2 - 1;
 			case(states[upper_bit_write -: 1])
 				2'b00:
 					if(was_taken)
