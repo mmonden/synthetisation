@@ -1,8 +1,6 @@
-// Take size = 32 --> ideal for amount of instructions + is factor of 2
-// This means we need 2^n = 32 or n = 5 bits of the lower part of the PC
-// Each memory cell has 2 bits
-
-module branch_target_buffer(
+module branch_target_buffer#(
+      integer parameter LOWER = 5
+   )(
 		input wire	clk,
 		input wire	arst_n,
 		input wire	en,
@@ -12,16 +10,18 @@ module branch_target_buffer(
 		output reg  [63:0]	predicted_branch_pc
 	);
 	integer upper_bit_read, upper_bit_write;
+   integer i;
 
 	reg r_prediction;
-	reg[63:0] states;
+	reg[64-LOWER+63:0] states; // higer_pc_part (x-bits) | branch_pc_part (64-bits)
 	initial states = 63'b0;
 
-	always@(posedge clk, negedge arst_n)begin
+	always@(posedge clk, negedge arst_n) begin
 		if(arst_n==0)begin
-			r_prediction <= 63'b0;
+         for(i = 0; i < 2**LOWER; i++)
+			   r_prediction[i] <= 0;
 		end
-   	end
+   end
 
 	always@(*) begin
 		if(en == 1'b1) begin

@@ -2,28 +2,28 @@
 // This means we need 2^n = 32 or n = 5 bits of the lower part of the PC
 // Each memory cell has 2 bits
 
-module branch_history_table(
+module branch_history_table#(
+		parameter integer LOWER = 5
+	)(
 		input wire	clk,
 		input wire	arst_n,
 		input wire	en,
-		input wire	[4:0] read_addr,
-		input wire	[4:0] write_addr,	// the prev pc
+		input wire	[LOWER - 1:0] read_addr,
+		input wire	[LOWER - 1:0] write_addr,	// the prev pc
 		input wire 	was_taken,
 		output reg	prediction
 	);
 	integer upper_bit_read, upper_bit_write;
 
 	reg r_prediction;
-	reg[63:0] states;
-	initial states = 63'b0;
+	reg[2**(LOWER + 1) - 1:0] states;
+	initial states = 0;
 
 	always@(posedge clk, negedge arst_n)begin
 		if(arst_n==0)begin
-			r_prediction <= 63'b0;
+			r_prediction <= 0;
 		end
-   	end
 
-	always@(*) begin
 		if(en == 1'b1) begin
 			upper_bit_write = write_addr*2 + 1;
 			upper_bit_read = read_addr*2 + 1;
@@ -61,7 +61,7 @@ module branch_history_table(
 				default:	r_prediction <= 1'b0;
 			endcase
 		end
-	end
+   	end
 
 	assign prediction = r_prediction;
 endmodule
