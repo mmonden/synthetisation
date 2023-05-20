@@ -30,8 +30,6 @@ module branch_history_table(
 			upper_bit_write = write_addr*2 + 1;
 			upper_bit_read = read_addr*2 + 1;
 
-			test = states[upper_bit_read -: 1];
-
 			case(states[upper_bit_write -: 1])
 				2'b00:
 					if(was_taken)
