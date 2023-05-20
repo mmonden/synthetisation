@@ -9,11 +9,13 @@ module branch_history_table(
 		input wire	clk,
 		input wire	arst_n,
 		input wire	en,
-		input reg	[4:0] read_addr,
-		input reg	[4:0] write_addr,	// the prev pc
+		input wire	[4:0] read_addr,
+		input wire	[4:0] write_addr,	// the prev pc
 		input wire 	was_taken,
 		output reg	prediction
 	);
+	integer upper_bit;
+
 	reg r_prediction;
 	reg[63:0] states;
 
@@ -61,7 +63,7 @@ module branch_history_table(
    	end
 
 	always@(read_addr) begin
-		parameter integer upper_bit = read_addr - 1;
+		upper_bit = read_addr - 1;
 
 		if(en == 1'b1) begin 
 			case(states[upper_bit -: 1])
