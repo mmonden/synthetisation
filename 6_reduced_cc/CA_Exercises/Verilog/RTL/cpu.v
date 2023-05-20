@@ -60,6 +60,7 @@ wire [1:0]	mux_control_A, mux_control_B, alu_op_tomux;
 wire [63:0]	mux_output_A, mux_output_B;
 
 wire flush_ID_EX, BHT_signal, prediction;
+wire [63:0] predicted_branch_pc;
 
 immediate_extend_unit immediate_extend_u(
 	 .instruction         (instruction_IF_ID),
