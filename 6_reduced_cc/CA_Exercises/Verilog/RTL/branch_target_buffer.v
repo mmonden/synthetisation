@@ -14,12 +14,12 @@ module branch_target_buffer#(
 
 	reg r_prediction;
 	reg[64-LOWER+63:0] states[0:2**LOWER - 1]; // higer_pc_part (x-bits) | branch_pc_part (64-bits)
-	initial states = 63'b0;
+	initial states[0:2**LOWER - 1] = 63'b0;
 
 	always@(posedge clk, negedge arst_n) begin
 		if(arst_n==0)begin
-         for(i = 0; i < 2**LOWER; i++)
-			   r_prediction[i] <= 0;
+         // for(i = 0; i < 2**LOWER; i++)
+			   r_prediction <= 0;
 		end
    end
 
