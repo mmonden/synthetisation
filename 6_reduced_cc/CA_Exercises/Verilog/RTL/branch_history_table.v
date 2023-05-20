@@ -13,8 +13,6 @@ module branch_history_table(
 	);
 	integer upper_bit_read, upper_bit_write;
 
-	reg[1:0] test;
-
 	reg r_prediction;
 	reg[63:0] states;
 	initial states = 63'b0;

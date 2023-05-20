@@ -93,8 +93,8 @@ branch_history_table BHT (
 	.clk		(clk),
 	.arst_n		(arst_n),
 	.en			(enable),
-	.read_addr	(current_pc[6:2]),
-	.write_addr	(current_pc_IF_ID[6:2]),
+	.read_addr	(current_pc[7:3]),
+	.write_addr	(current_pc_IF_ID[7:3]),
 	.was_taken	(BHT_signal),
 	.prediction	(prediction)
 );
