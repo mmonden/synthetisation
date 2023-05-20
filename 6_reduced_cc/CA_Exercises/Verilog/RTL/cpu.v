@@ -108,7 +108,9 @@ branch_target_buffer BTB (
 	.current_pc	(current_pc),
 	.prev_pc	(current_pc_IF_ID),
 	.branch_pc	(branch_pc),
+	.jump_pc	(jump_pc),
 	.was_taken	(BHT_signal),
+	.jumped		(jump),
 
 	.predicted_branch_pc	(predicted_branch_pc)
 );

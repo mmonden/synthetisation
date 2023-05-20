@@ -7,7 +7,9 @@ module branch_target_buffer#(
 		input wire 	[63:0] current_pc,
       input wire	[63:0] prev_pc,
       input wire  [63:0] branch_pc,
+      input wire  [63:0] jump_pc,
       input wire 	was_taken,
+      input wire  jumped,
 		output reg  [63:0] predicted_branch_pc
 	);
 	integer row_index;
@@ -29,6 +31,9 @@ module branch_target_buffer#(
 
          if(was_taken)
 			   states[row_index] <= {prev_pc[64-LOWER+63:64], branch_pc};
+
+         if(jumped)
+            states[row_index] <= {prev_pc[64-LOWER+63:64], jump_pc};
 
 			if(~|(current_pc[63:LOWER] ^ states[row_index][64-LOWER+63:64])) 
             r_predicted_branch_pc <= states[row_index][63:0];
