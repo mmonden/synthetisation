@@ -20,7 +20,7 @@ module branch_target_buffer#(
 
 	always@(posedge clk, negedge arst_n) begin
 		if(arst_n==0)begin
-			   r_prediction <= 0;
+			   r_predicted_branch_pc <= 0;
             for(i = 0; i < 2**LOWER; i++) states[i] <= 0;
 		end
 
