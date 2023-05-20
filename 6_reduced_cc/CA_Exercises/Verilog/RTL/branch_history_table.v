@@ -2,9 +2,6 @@
 // This means we need 2^n = 32 or n = 5 bits of the lower part of the PC
 // Each memory cell has 2 bits
 
-//  The non ext will correspond to always read
-//  The ext signal will correspond to write
-//  There will be only one memory module: mem_sel=0 and N_MEMS=1
 module branch_history_table(
 		input wire	clk,
 		input wire	arst_n,
@@ -20,6 +17,7 @@ module branch_history_table(
 
 	reg r_prediction;
 	reg[63:0] states;
+	initial states = 63'b0;
 
 	always@(posedge clk, negedge arst_n)begin
 		if(arst_n==0)begin
