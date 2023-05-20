@@ -22,6 +22,7 @@ module branch_history_table #(
 	always@(posedge clk, negedge arst_n)begin
 		if(arst_n==0)begin
 			r_prediction <= 0;
+			states <= 0;
 		end
 
 		if(en == 1'b1) begin
