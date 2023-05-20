@@ -28,38 +28,38 @@ module branch_target_buffer#(
 			upper_bit_write = write_addr*2 + 1;
 			upper_bit_read = read_addr*2 + 1;
 
-			case(states[upper_bit_write -: 1])
-				2'b00:
-					if(was_taken)
-						states[upper_bit_write -: 1] <= 2'b01;
-					else
-						states[upper_bit_write -: 1] <= 2'b00;
-				2'b01:
-					if(was_taken)
-						states[upper_bit_write -: 1] <= 2'b11;
-					else
-						states[upper_bit_write -: 1] <= 2'b00;
-				2'b10:
-					if(was_taken)
-						states[upper_bit_write -: 1] <= 2'b11;
-					else
-						states[upper_bit_write -: 1] <= 2'b00;
-				2'b11:
-					if(!was_taken)
-						states[upper_bit_write -: 1] <= 2'b10;
-					else
-						states[upper_bit_write -: 1] <= 2'b11;
-				default:
-					states[upper_bit_write -: 1] <= 2'b00;
-			endcase
+			// case(states[upper_bit_write -: 1])
+			// 	2'b00:
+			// 		if(was_taken)
+			// 			states[upper_bit_write -: 1] <= 2'b01;
+			// 		else
+			// 			states[upper_bit_write -: 1] <= 2'b00;
+			// 	2'b01:
+			// 		if(was_taken)
+			// 			states[upper_bit_write -: 1] <= 2'b11;
+			// 		else
+			// 			states[upper_bit_write -: 1] <= 2'b00;
+			// 	2'b10:
+			// 		if(was_taken)
+			// 			states[upper_bit_write -: 1] <= 2'b11;
+			// 		else
+			// 			states[upper_bit_write -: 1] <= 2'b00;
+			// 	2'b11:
+			// 		if(!was_taken)
+			// 			states[upper_bit_write -: 1] <= 2'b10;
+			// 		else
+			// 			states[upper_bit_write -: 1] <= 2'b11;
+			// 	default:
+			// 		states[upper_bit_write -: 1] <= 2'b00;
+			// endcase
 
-			case(states[upper_bit_read -: 1])
-				2'b00:	r_prediction <= 1'b0;
-				2'b01:	r_prediction <= 1'b0;
-				2'b10:	r_prediction <= 1'b1;
-				2'b11:	r_prediction <= 1'b1;
-				default:	r_prediction <= 1'b0;
-			endcase
+			// case(states[upper_bit_read -: 1])
+			// 	2'b00:	r_prediction <= 1'b0;
+			// 	2'b01:	r_prediction <= 1'b0;
+			// 	2'b10:	r_prediction <= 1'b1;
+			// 	2'b11:	r_prediction <= 1'b1;
+			// 	default:	r_prediction <= 1'b0;
+			// endcase
 		end
 	end
 
