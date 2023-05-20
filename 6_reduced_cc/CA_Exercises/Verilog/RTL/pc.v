@@ -34,9 +34,10 @@ module pc#(
 	localparam  [DATA_W-1:0] PC_INCREASE= {{(DATA_W-3){1'b0}},3'd4};
 
 	wire [DATA_W-1:0] pc_r,next_pc,next_pc_i;
-	reg               pc_src;
+	reg               pc_src, was_taken;
 
-	always@(*) pc_src = zero_flag & branch; 
+	always@(*) pc_src = zero_flag & branch;
+	always@(*) was_taken = zero_flag & branch;
 
 	mux_2#(
 		.DATA_W(DATA_W)
