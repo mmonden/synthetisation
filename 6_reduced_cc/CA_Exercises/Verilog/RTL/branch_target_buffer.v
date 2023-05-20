@@ -1,5 +1,5 @@
 module branch_target_buffer#(
-      integer parameter LOWER = 5
+      parameter integer LOWER = 5
    )(
 		input wire	clk,
 		input wire	arst_n,

@@ -2,7 +2,7 @@
 // This means we need 2^n = 32 or n = 5 bits of the lower part of the PC
 // Each memory cell has 2 bits
 
-module branch_history_table#(
+module branch_history_table #(
 		parameter integer LOWER = 5
 	)(
 		input wire	clk,
