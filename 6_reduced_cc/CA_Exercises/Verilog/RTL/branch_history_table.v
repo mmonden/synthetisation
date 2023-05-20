@@ -9,8 +9,8 @@ module branch_history_table(
 		input wire	clk,
 		input wire	arst_n,
 		input wire	en,
-		input wire	[4:0] read_addr,
-		input wire	[4:0] write_addr,	// the prev pc
+		input reg	[4:0] read_addr,
+		input reg	[4:0] write_addr,	// the prev pc
 		input wire 	was_taken,
 		output reg	prediction
 	);
