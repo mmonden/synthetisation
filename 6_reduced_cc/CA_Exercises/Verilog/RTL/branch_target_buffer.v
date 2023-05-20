@@ -73,7 +73,7 @@ module branch_target_buffer#(
                7: state_row7 <= {prev_pc, jump_pc};
             endcase
 
-			row_index = curr_pc[LOWER - 1:0]/4;
+			row_index = current_pc[LOWER - 1:0]/4;
             // r_predicted_branch_pc <= states[row_index][63:0];
          case(row_index)
             0: if(~|(current_pc ^ state_row0[127:64])) r_predicted_branch_pc <= state_row0[63:0]; else r_predicted_branch_pc <= 0; 
