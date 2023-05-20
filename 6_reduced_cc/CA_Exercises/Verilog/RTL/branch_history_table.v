@@ -59,8 +59,6 @@ module branch_history_table #(
 						states[upper_bit_write -: 1] <= 2'b10;
 					else
 						states[upper_bit_write -: 1] <= 2'b11;
-				default:
-					states[upper_bit_write -: 1] <= 2'b00;
 			endcase
 		end
    	end
