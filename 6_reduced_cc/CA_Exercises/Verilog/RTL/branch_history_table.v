@@ -17,7 +17,7 @@ module branch_history_table #(
 	integer upper_bit_read, upper_bit_write;
 
 	reg r_prediction;
-	reg[8*2 - 1:0] states;
+	reg [8*2 - 1:0] states;
 	initial states = 0;
 
 	always@(posedge clk, negedge arst_n)begin
@@ -27,8 +27,8 @@ module branch_history_table #(
 		end
 
 		if(en == 1'b1) begin
-			upper_bit_write = write_addr/4;
-			upper_bit_read = read_addr/4;
+			upper_bit_write = write_addr/2 + 1;
+			upper_bit_read = read_addr/2 + 1;
 
 			case(states[upper_bit_write -: 1])
 				2'b00:
