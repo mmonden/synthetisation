@@ -16,7 +16,7 @@ module branch_history_table(
 	);
 	integer upper_bit_read, upper_bit_write;
 
-	wire[1:0] test;
+	reg[1:0] test;
 
 	reg r_prediction;
 	reg[63:0] states;
