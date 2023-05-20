@@ -96,6 +96,7 @@ branch_history_table BHT (
 	.read_addr	(current_pc[6:2]),
 	.write_addr	(current_pc_IF_ID[6:2]),
 	.was_taken	(BHT_signal),
+	.jumped		(jump),
 
 	.prediction	(prediction)
 );

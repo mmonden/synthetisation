@@ -11,6 +11,7 @@ module branch_history_table #(
 		input wire	[LOWER - 1:0] read_addr,
 		input wire	[LOWER - 1:0] write_addr,	// the prev pc
 		input wire 	was_taken,
+		input wire	jumped,
 		output reg	prediction
 	);
 	integer upper_bit_read, upper_bit_write;
@@ -31,22 +32,22 @@ module branch_history_table #(
 
 			case(states[upper_bit_write -: 1])
 				2'b00:
-					if(was_taken)
+					if(was_taken | jumped)
 						states[upper_bit_write -: 1] <= 2'b01;
 					else
 						states[upper_bit_write -: 1] <= 2'b00;
 				2'b01:
-					if(was_taken)
+					if(was_taken | jumped)
 						states[upper_bit_write -: 1] <= 2'b11;
 					else
 						states[upper_bit_write -: 1] <= 2'b00;
 				2'b10:
-					if(was_taken)
+					if(was_taken | jumped)
 						states[upper_bit_write -: 1] <= 2'b11;
 					else
 						states[upper_bit_write -: 1] <= 2'b00;
 				2'b11:
-					if(!was_taken)
+					if(!was_taken | jumped)
 						states[upper_bit_write -: 1] <= 2'b10;
 					else
 						states[upper_bit_write -: 1] <= 2'b11;
