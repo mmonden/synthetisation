@@ -30,31 +30,31 @@ module branch_history_table(
 			upper_bit_write = write_addr*2 - 1;
 			upper_bit_read = read_addr*2 - 1;
 
-			assign test = states[upper_bit_write -: 1];
+			assign test = states[upper_bit_write : upper_bit_write - 1];
 
 			case(states[upper_bit_write -: 1])
 				2'b00:
 					if(was_taken)
-						states[upper_bit_write -: 1] = 2'b01;
+						states[upper_bit_write -: 1] <= 2'b01;
 					else
-						states[upper_bit_write -: 1] = 2'b00;
+						states[upper_bit_write -: 1] <= 2'b00;
 				2'b01:
 					if(was_taken)
-						states[upper_bit_write -: 1] = 2'b11;
+						states[upper_bit_write -: 1] <= 2'b11;
 					else
-						states[upper_bit_write -: 1] = 2'b00;
+						states[upper_bit_write -: 1] <= 2'b00;
 				2'b10:
 					if(was_taken)
-						states[upper_bit_write -: 1] = 2'b11;
+						states[upper_bit_write -: 1] <= 2'b11;
 					else
-						states[upper_bit_write -: 1] = 2'b00;
+						states[upper_bit_write -: 1] <= 2'b00;
 				2'b11:
 					if(!was_taken)
-						states[upper_bit_write -: 1] = 2'b10;
+						states[upper_bit_write -: 1] <= 2'b10;
 					else
-						states[upper_bit_write -: 1] = 2'b11;
+						states[upper_bit_write -: 1] <= 2'b11;
 				default:
-					states[upper_bit_write -: 1] = 2'b00;
+					states[upper_bit_write -: 1] <= 2'b00;
 			endcase
 
 			case(states[upper_bit_read -: 1])
