@@ -61,8 +61,9 @@ module branch_history_table(
    	end
 
 	always@(read_addr) begin
-		if(en == 1'b1)begin
-			case(states[2**read_addr[4] + 2**read_addr[3] + 2**read_addr[2] + 2**read_addr[1] + 2**read_addr[0] - 1 -: 1])
+		parameter integer upper_bit = 2**read_addr[4] + 2**read_addr[3] + 2**read_addr[2] + 2**read_addr[1] + 2**read_addr[0] - 1 
+		if(en == 1'b1) begin 
+			case(states[upper_bit -: 1])
 				2'b00:	r_prediction <= 1'b0;
 				2'b01:	r_prediction <= 1'b0;
 				2'b10:	r_prediction <= 1'b1;
