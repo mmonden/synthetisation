@@ -73,20 +73,18 @@ module branch_target_buffer#(
                7: state_row7 <= {prev_pc, jump_pc};
             endcase
 
-			if(~|(current_pc ^ states[row_index/4][127:64])) 
+			
             // r_predicted_branch_pc <= states[row_index][63:0];
-            case(row_index)
-               0: r_predicted_branch_pc <= state_row0[63:0];
-               1: r_predicted_branch_pc <= state_row1[63:0];
-               2: r_predicted_branch_pc <= state_row2[63:0];
-               3: r_predicted_branch_pc <= state_row3[63:0];
-               4: r_predicted_branch_pc <= state_row4[63:0];
-               5: r_predicted_branch_pc <= state_row5[63:0];
-               6: r_predicted_branch_pc <= state_row6[63:0];
-               7: r_predicted_branch_pc <= state_row7[63:0];
-            endcase
-         else
-            r_predicted_branch_pc <= 0; 
+         case(row_index)
+            0: if(~|(current_pc ^ state_row0[127:64])) r_predicted_branch_pc <= state_row0[63:0]; else r_predicted_branch_pc <= 0; 
+            1: if(~|(current_pc ^ state_row1[127:64])) r_predicted_branch_pc <= state_row1[63:0]; else r_predicted_branch_pc <= 0; 
+            2: if(~|(current_pc ^ state_row2[127:64])) r_predicted_branch_pc <= state_row2[63:0]; else r_predicted_branch_pc <= 0; 
+            3: if(~|(current_pc ^ state_row3[127:64])) r_predicted_branch_pc <= state_row3[63:0]; else r_predicted_branch_pc <= 0; 
+            4: if(~|(current_pc ^ state_row4[127:64])) r_predicted_branch_pc <= state_row4[63:0]; else r_predicted_branch_pc <= 0; 
+            5: if(~|(current_pc ^ state_row5[127:64])) r_predicted_branch_pc <= state_row5[63:0]; else r_predicted_branch_pc <= 0; 
+            6: if(~|(current_pc ^ state_row6[127:64])) r_predicted_branch_pc <= state_row6[63:0]; else r_predicted_branch_pc <= 0; 
+            7: if(~|(current_pc ^ state_row7[127:64])) r_predicted_branch_pc <= state_row7[63:0]; else r_predicted_branch_pc <= 0; 
+         endcase
 		end
    end
 
