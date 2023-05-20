@@ -106,7 +106,7 @@ branch_target_buffer BTB (
 	.clk		(clk),
 	.arst_n		(arst_n),
 	.en			(enable),
-	.current_pc	(current_pc),
+	.current_pc	(updated_pc),
 	.prev_pc	(current_pc_IF_ID),
 	.branch_pc	(branch_pc),
 	.jump_pc	(jump_pc),
