@@ -14,7 +14,7 @@ module branch_history_table(
 		input wire 	was_taken,
 		output reg	prediction
 	);
-	integer upper_bit;
+	integer upper_bit_read, upper_bit_write;
 
 	reg r_prediction;
 	reg[63:0] states;
@@ -63,10 +63,10 @@ module branch_history_table(
    	end
 
 	always@(read_addr) begin
-		upper_bit = read_addr - 1;
+		upper_bit_read = read_addr - 1;
 
 		if(en == 1'b1) begin 
-			case(states[upper_bit -: 1])
+			case(states[upper_bit_read -: 1])
 				2'b00:	r_prediction <= 1'b0;
 				2'b01:	r_prediction <= 1'b0;
 				2'b10:	r_prediction <= 1'b1;
@@ -77,30 +77,31 @@ module branch_history_table(
 	end
 
 	always@(write_addr, was_taken) begin
-		if(en == 1'b1)begin
-			case(states[write_addr*2 - 1 : write_addr*2 - 2])
+		if(en == 1'b1) begin
+			upper_bit_write = write_addr - 1;
+			case(states[upper_bit_write -: 1])
 				2'b00:
 					if(was_taken)
-						states[write_addr*2 - 1 : write_addr*2 - 2] <= 2'b01;
+						states[upper_bit_write -: 1] <= 2'b01;
 					else
-						states[write_addr*2 - 1 : write_addr*2 - 2] <= 2'b00;
+						states[upper_bit_write -: 1] <= 2'b00;
 				2'b01:
 					if(was_taken)
-						states[write_addr*2 - 1 : write_addr*2 - 2] <= 2'b11;
+						states[upper_bit_write -: 1] <= 2'b11;
 					else
-						states[write_addr*2 - 1 : write_addr*2 - 2] <= 2'b00;
+						states[upper_bit_write -: 1] <= 2'b00;
 				2'b10:
 					if(was_taken)
-						states[write_addr*2 - 1 : write_addr*2 - 2] <= 2'b11;
+						states[upper_bit_write -: 1] <= 2'b11;
 					else
-						states[write_addr*2 - 1 : write_addr*2 - 2] <= 2'b00;
+						states[upper_bit_write -: 1] <= 2'b00;
 				2'b11:
 					if(!was_taken)
-						states[write_addr*2 - 1 : write_addr*2 - 2] <= 2'b10;
+						states[upper_bit_write -: 1] <= 2'b10;
 					else
-						states[write_addr*2 - 1 : write_addr*2 - 2] <= 2'b11;
+						states[upper_bit_write -: 1] <= 2'b11;
 				default:
-					states[write_addr*2 - 1 : write_addr*2 - 2] <= 2'b00;
+					states[upper_bit_write -: 1] <= 2'b00;
 			endcase
 		end
 	end
