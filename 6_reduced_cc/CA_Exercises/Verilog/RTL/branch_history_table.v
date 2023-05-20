@@ -47,7 +47,7 @@ module branch_history_table #(
 					else
 						states[upper_bit_write -: 1] <= 2'b00;
 				2'b11:
-					if(!was_taken | jumped)
+					if(!was_taken | !jumped)
 						states[upper_bit_write -: 1] <= 2'b10;
 					else
 						states[upper_bit_write -: 1] <= 2'b11;
