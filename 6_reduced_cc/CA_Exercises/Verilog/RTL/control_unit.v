@@ -32,7 +32,7 @@ module control_unit(
 
     reg flush;
 
-    always@(*) if(prediction) flush = ~prediction;
+    always@(*) if(prediction) flush = 1'b0;
 
     // EXTRA control session5
     // always@(*) begin
