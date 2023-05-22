@@ -14,7 +14,7 @@ module branch_history_table #(
 		input wire	jumped,
 		output reg	prediction
 	);
-	integer upper_bit_read, upper_bit_write;
+	integer read_row, write_row;
 
 	reg r_prediction;
 
