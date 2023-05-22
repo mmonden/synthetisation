@@ -29,7 +29,7 @@ module branch_history_table #(
 	initial state_row1 = 0;
 	initial state_row2 = 0;
 	initial state_row3 = 0;
-	initial state_row4 = 2'b10;
+	initial state_row4 = 0;
 	initial state_row5 = 0;
 	initial state_row6 = 0;
 	initial state_row7 = 0;
