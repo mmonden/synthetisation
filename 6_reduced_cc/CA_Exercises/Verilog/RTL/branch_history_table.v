@@ -16,7 +16,7 @@ module branch_history_table #(
 	);
 	integer read_row, write_row;
 
-	reg r_prediction;
+	// reg r_prediction;
 
 	reg [1:0] state_row0;
 	reg [1:0] state_row1;
@@ -41,21 +41,17 @@ module branch_history_table #(
 		read_row = read_addr/4;
 	end
 
-	always@(posedge clk, negedge arst_n)begin
-		if(arst_n==0)begin
-			r_prediction <= 0;
-		end
-
+	always@(posedge clk)begin
 		if(en == 1'b1) begin
 			case(read_row)
-				0:	r_prediction <= state_row0[1];
-				1:	r_prediction <= state_row1[1];
-				2:	r_prediction <= state_row2[1];
-				3:	r_prediction <= state_row3[1];
+				0:	prediction <= state_row0[1];
+				1:	prediction <= state_row1[1];
+				2:	prediction <= state_row2[1];
+				3:	prediction <= state_row3[1];
 				4:	prediction <= state_row4[1];
-				5:	r_prediction <= state_row5[1];
-				6:	r_prediction <= state_row6[1];
-				7:	r_prediction <= state_row7[1];
+				5:	prediction <= state_row5[1];
+				6:	prediction <= state_row6[1];
+				7:	prediction <= state_row7[1];
 			endcase
 
 			// case(states[upper_bit_write +: 1])
