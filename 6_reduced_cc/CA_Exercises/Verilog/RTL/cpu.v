@@ -94,7 +94,7 @@ branch_history_table BHT (
 	.clk		(clk),
 	.arst_n		(arst_n),
 	.en			(enable),
-	.read_addr	(current_pc[4:0]),
+	.read_addr	(updated_pc[4:0]),
 	.write_addr	(current_pc_IF_ID[4:0]),
 	.was_taken	(BHT_signal),
 	.jumped		(jump),
