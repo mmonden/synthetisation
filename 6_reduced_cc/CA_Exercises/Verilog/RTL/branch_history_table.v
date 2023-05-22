@@ -53,7 +53,6 @@ module branch_history_table #(
 				7:	prediction <= state_row7[1];
 			endcase
 
-			if(branch)
 			if(was_taken | jumped)
 				case(write_row)
 					0:	if(~&(state_row0 & 2'b11)) state_row0 = state_row0 + 2'b01;
@@ -65,17 +64,18 @@ module branch_history_table #(
 					6:	if(~&(state_row6 & 2'b11)) state_row6 = state_row6 + 2'b01;
 					7:	if(~&(state_row7 & 2'b11)) state_row7 = state_row7 + 2'b01;
 				endcase
-			else
-				case(write_row)
-					0:	if(|(state_row0 | 2'b00)) state_row0 = state_row0 - 2'b01;
-					1:	if(|(state_row1 | 2'b00)) state_row1 = state_row1 - 2'b01;
-					2:	if(|(state_row2 | 2'b00)) state_row2 = state_row2 - 2'b01;
-					3:	if(|(state_row3 | 2'b00)) state_row3 = state_row3 - 2'b01;
-					4:	if(|(state_row4 | 2'b00)) state_row4 = state_row4 - 2'b01;
-					5:	if(|(state_row5 | 2'b00)) state_row5 = state_row5 - 2'b01;
-					6:	if(|(state_row6 | 2'b00)) state_row6 = state_row6 - 2'b01;
-					7:	if(|(state_row7 | 2'b00)) state_row7 = state_row7 - 2'b01;
-				endcase
+			
+			// if()
+			// 	case(write_row)
+			// 		0:	if(|(state_row0 | 2'b00)) state_row0 = state_row0 - 2'b01;
+			// 		1:	if(|(state_row1 | 2'b00)) state_row1 = state_row1 - 2'b01;
+			// 		2:	if(|(state_row2 | 2'b00)) state_row2 = state_row2 - 2'b01;
+			// 		3:	if(|(state_row3 | 2'b00)) state_row3 = state_row3 - 2'b01;
+			// 		4:	if(|(state_row4 | 2'b00)) state_row4 = state_row4 - 2'b01;
+			// 		5:	if(|(state_row5 | 2'b00)) state_row5 = state_row5 - 2'b01;
+			// 		6:	if(|(state_row6 | 2'b00)) state_row6 = state_row6 - 2'b01;
+			// 		7:	if(|(state_row7 | 2'b00)) state_row7 = state_row7 - 2'b01;
+			// 	endcase
 		end
    	end
 endmodule
