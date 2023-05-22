@@ -35,11 +35,12 @@ module pc#(
 
 	localparam  [DATA_W-1:0] PC_INCREASE= {{(DATA_W-3){1'b0}},3'd4};
 
-	wire [DATA_W-1:0] pc_r,next_pc,next_pc_i;
-	reg               pc_src;
+	wire [DATA_W-1:0] pc_r, temp_next_pc, next_pc, next_pc_i;
+	reg               pc_src, take_prediction;
 
 	always@(*) pc_src = zero_flag & branch;
 	always@(*) was_taken = zero_flag & branch;
+	always@(*) take_prediction = (|predicted_pc) & predicted_pc;
 
 	mux_2#(
 		.DATA_W(DATA_W)
@@ -56,13 +57,17 @@ module pc#(
 		.input_a (jump_pc   ),
 		.input_b (next_pc_i ),
 		.select_a(jump      ),
-		.mux_out (next_pc   )
+		.mux_out (temp_next_pc   )
 	);
 
-	always@(*) begin
-		if((|predicted_pc) & predicted_pc)
-			assign next_pc = predicted_pc;
-	end
+	mux_2#(
+		.DATA_W(DATA_W)
+	)(
+		.input_a(predicted_pc),
+		.input_b(temp_next_pc),
+		.select_a(take_prediction),
+		.mux_out(next_pc)
+	);
 	
 	reg_arstn_en_hazards#(
 		.DATA_W(DATA_W),
