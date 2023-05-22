@@ -83,5 +83,5 @@ module branch_history_table #(
 		end
    	end
 
-	assign prediction = r_prediction;
+	// assign prediction = r_prediction;
 endmodule
