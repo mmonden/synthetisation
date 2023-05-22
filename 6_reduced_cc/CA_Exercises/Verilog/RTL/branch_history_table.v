@@ -9,7 +9,7 @@ module branch_history_table #(
 		input wire	arst_n,
 		input wire	en,
 		input wire	[LOWER - 1:0] read_addr,
-		input wire	[LOWER - 1:0] write_addr,	// the prev pc
+		input wire	[LOWER - 1:0] write_addr,
 		input wire 	was_taken,
 		input wire	jumped,
 		output reg	prediction
@@ -35,7 +35,7 @@ module branch_history_table #(
 				2'b01:	r_prediction <= 1'b0;
 				2'b10:	r_prediction <= 1'b1;
 				2'b11:	r_prediction <= 1'b1;
-				default:	r_prediction <= 1'b0;
+				// default:	r_prediction <= 1'b0;
 			endcase
 
 			case(states[upper_bit_write -: 1])
