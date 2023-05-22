@@ -60,7 +60,7 @@ module pc#(
 	);
 
 	always@(*) begin
-		if((|predicted_branch_pc) & predicted_pc)
+		if((|predicted_pc) & predicted_pc)
 			next_pc = predicted_pc;
 	end
 	
