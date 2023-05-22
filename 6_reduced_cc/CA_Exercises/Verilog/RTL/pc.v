@@ -61,7 +61,7 @@ module pc#(
 
 	always@(*) begin
 		if((|predicted_branch_pc) & predicted_pc)
-			next_pc = predicted_branch_pc;
+			next_pc = predicted_pc;
 	end
 	
 	reg_arstn_en_hazards#(
