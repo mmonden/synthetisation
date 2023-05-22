@@ -17,9 +17,6 @@ module branch_target_buffer#(
 
    reg [63:0] r_predicted_branch_pc;
 
-	// reg [127:0] states[0:2**LOWER - 1]; // higer_pc_part (x-bits) | branch_pc_part (64-bits)
-	// initial for(i = 0; i < 2**LOWER; i++) states[i] <= 0;
-
    reg [127:0] state_row0;
    reg [127:0] state_row1;
    reg [127:0] state_row2;
@@ -41,14 +38,12 @@ module branch_target_buffer#(
 	always@(posedge clk, negedge arst_n) begin
 		if(arst_n==0)begin
 			   r_predicted_branch_pc <= 0;
-            // for(i = 0; i < 2**LOWER; i++) states[i] <= 0;
 		end
 
       if(en == 1'b1) begin
 			row_index = prev_pc[LOWER - 1:0]/4;
 
          if(was_taken)
-			   // states[row_index] <= {prev_pc, branch_pc};
             case(row_index)
                0: state_row0 <= {prev_pc, branch_pc};
                1: state_row1 <= {prev_pc, branch_pc};
@@ -61,7 +56,6 @@ module branch_target_buffer#(
             endcase
 
          if(jumped)
-            // states[row_index] <= {prev_pc, jump_pc};
             case(row_index)
                0: state_row0 <= {prev_pc, jump_pc};
                1: state_row1 <= {prev_pc, jump_pc};
@@ -74,7 +68,7 @@ module branch_target_buffer#(
             endcase
 
 			row_index = current_pc[LOWER - 1:0]/4;
-            // r_predicted_branch_pc <= states[row_index][63:0];
+            
          case(row_index)
             0: if(~|(current_pc ^ state_row0[127:64])) r_predicted_branch_pc <= state_row0[63:0]; else r_predicted_branch_pc <= 0; 
             1: if(~|(current_pc ^ state_row1[127:64])) r_predicted_branch_pc <= state_row1[63:0]; else r_predicted_branch_pc <= 0; 

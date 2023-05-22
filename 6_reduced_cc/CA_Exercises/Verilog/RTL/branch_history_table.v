@@ -52,7 +52,7 @@ module branch_history_table #(
 				1:	r_prediction <= state_row1[1];
 				2:	r_prediction <= state_row2[1];
 				3:	r_prediction <= state_row3[1];
-				4:	r_prediction <= state_row4[1];
+				4:	prediction <= state_row4[1];
 				5:	r_prediction <= state_row5[1];
 				6:	r_prediction <= state_row6[1];
 				7:	r_prediction <= state_row7[1];
