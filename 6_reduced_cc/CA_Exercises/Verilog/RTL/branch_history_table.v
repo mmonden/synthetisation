@@ -44,14 +44,14 @@ module branch_history_table #(
 	always@(posedge clk)begin
 		if(en == 1'b1) begin
 			case(read_row)
-				0:	prediction <= state_row0[1];
-				1:	prediction <= state_row1[1];
-				2:	prediction <= state_row2[1];
-				3:	prediction <= state_row3[1];
-				4:	prediction <= state_row4[1];
-				5:	prediction <= state_row5[1];
-				6:	prediction <= state_row6[1];
-				7:	prediction <= state_row7[1];
+				0:	prediction = state_row0[1];
+				1:	prediction = state_row1[1];
+				2:	prediction = state_row2[1];
+				3:	prediction = state_row3[1];
+				4:	prediction = state_row4[1];
+				5:	prediction = state_row5[1];
+				6:	prediction = state_row6[1];
+				7:	prediction = state_row7[1];
 			endcase
 
 			// case(states[upper_bit_write +: 1])
