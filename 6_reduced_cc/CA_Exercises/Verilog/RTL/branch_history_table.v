@@ -17,19 +17,28 @@ module branch_history_table #(
 	integer upper_bit_read, upper_bit_write;
 
 	reg r_prediction;
-	reg [8*2 - 1:0] states;
-	initial states = 0;
+
+	reg [1:0] state_row0;
+	reg [1:0] state_row1;
+	reg [1:0] state_row2;
+	reg [1:0] state_row3;
+	reg [1:0] state_row4;
+	reg [1:0] state_row5;
+	reg [1:0] state_row6;
+	reg [1:0] state_row7;
+
+	initial state_row0 = 0;
+	initial state_row1 = 0;
+	initial state_row2 = 0;
+	initial state_row3 = 0;
+	initial state_row4 = 1;
+	initial state_row5 = 0;
+	initial state_row6 = 0;
+	initial state_row7 = 0;
 
 	always@(*) begin
-		upper_bit_write = write_addr/2;
-		upper_bit_read = read_addr/2;
-
-		case(states[upper_bit_read +: 1])
-			2'b00:	r_prediction <= 1'b0;
-			2'b01:	r_prediction <= 1'b0;
-			2'b10:	r_prediction <= 1'b1;
-			2'b11:	r_prediction <= 1'b1;
-		endcase
+		write_row = write_addr/4;
+		read_row = read_addr/4;
 	end
 
 	always@(posedge clk, negedge arst_n)begin
@@ -37,8 +46,19 @@ module branch_history_table #(
 			r_prediction <= 0;
 			states <= 0;
 		end
-	
+
 		if(en == 1'b1) begin
+			case(read_row)
+				0:	r_prediction <= state_row0[1];
+				1:	r_prediction <= state_row1[1];
+				2:	r_prediction <= state_row2[1];
+				3:	r_prediction <= state_row3[1];
+				4:	r_prediction <= state_row4[1];
+				5:	r_prediction <= state_row5[1];
+				6:	r_prediction <= state_row6[1];
+				7:	r_prediction <= state_row7[1];
+			endcase
+
 			case(states[upper_bit_write +: 1])
 				2'b00:
 					if(was_taken | jumped)
