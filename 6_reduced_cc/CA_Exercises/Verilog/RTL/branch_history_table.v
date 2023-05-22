@@ -27,8 +27,8 @@ module branch_history_table #(
 		end
 	
 		if(en == 1'b1) begin
-			upper_bit_write = write_addr/2;
-			upper_bit_read = read_addr/2;
+			upper_bit_write <= write_addr/2;
+			upper_bit_read <= read_addr/2;
 
 			case(states[upper_bit_read -: 1])
 				2'b00:	r_prediction <= 1'b0;
