@@ -12,6 +12,7 @@ module branch_history_table #(
 		input wire	[LOWER - 1:0] write_addr,
 		input wire 	was_taken,
 		input wire	jumped,
+		input wire	branch,
 		output reg	prediction
 	);
 	integer read_row, write_row;
@@ -52,6 +53,7 @@ module branch_history_table #(
 				7:	prediction <= state_row7[1];
 			endcase
 
+			if(branch)
 			if(was_taken | jumped)
 				case(write_row)
 					0:	if(~&(state_row0 & 2'b11)) state_row0 = state_row0 + 2'b01;
