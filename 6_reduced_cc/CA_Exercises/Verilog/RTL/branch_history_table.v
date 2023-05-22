@@ -12,7 +12,7 @@ module branch_history_table #(
 		input wire	[LOWER - 1:0] write_addr,
 		input wire 	was_taken,
 		input wire	jumped,
-		input wire	branch,
+		
 		output reg	prediction
 	);
 	integer read_row, write_row;

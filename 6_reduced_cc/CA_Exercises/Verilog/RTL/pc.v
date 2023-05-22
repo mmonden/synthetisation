@@ -22,8 +22,10 @@ module pc#(
 		input wire              hazard,
 		input  wire              enable,
 		input  wire [DATA_W-1:0] branch_pc,
-		input  wire [DATA_W-1:0] jump_pc,  
+		input  wire [DATA_W-1:0] jump_pc,
+		input wire [DATA_W-1:0] predicted_pc,
 		input  wire              zero_flag,
+		input wire prediction,
 		input  wire              branch,
 		input  wire              jump,
 		output reg  [DATA_W-1:0] updated_pc,
@@ -56,6 +58,11 @@ module pc#(
 		.select_a(jump      ),
 		.mux_out (next_pc   )
 	);
+
+	always@(*) begin
+		if((|predicted_branch_pc) & predicted_pc)
+			next_pc = predicted_branch_pc;
+	end
 	
 	reg_arstn_en_hazards#(
 		.DATA_W(DATA_W),
