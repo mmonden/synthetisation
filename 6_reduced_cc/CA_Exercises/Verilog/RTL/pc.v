@@ -62,7 +62,7 @@ module pc#(
 
 	mux_2#(
 		.DATA_W(DATA_W)
-	)(
+	) mux_prediction (
 		.input_a(predicted_pc),
 		.input_b(temp_next_pc),
 		.select_a(take_prediction),
