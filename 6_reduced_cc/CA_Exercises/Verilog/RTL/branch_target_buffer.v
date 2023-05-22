@@ -13,7 +13,6 @@ module branch_target_buffer#(
 		output reg  [63:0] predicted_branch_pc
 	);
 	integer row_index;
-   integer i;
 
    reg [63:0] r_predicted_branch_pc;
 

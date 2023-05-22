@@ -35,12 +35,14 @@ module branch_history_table #(
 	initial state_row5 = 0;
 	initial state_row6 = 0;
 	initial state_row7 = 0;
-	
+
+	always@(*) begin
+		write_row = write_addr/4;
+		read_row = read_addr/4;
+	end
+
 	always@(posedge clk)begin
 		if(en == 1'b1) begin
-			write_row = write_addr/4;
-			read_row = read_addr/4;
-
 			case(read_row)
 				0:	prediction <= state_row0[1];
 				1:	prediction <= state_row1[1];
@@ -77,5 +79,5 @@ module branch_history_table #(
 		end
    	end
 
-	// assign prediction = r_prediction;
+	assign prediction = 0'b1;
 endmodule
