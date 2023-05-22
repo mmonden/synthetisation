@@ -59,28 +59,28 @@ module branch_history_table #(
 				7:	r_prediction <= state_row7[1];
 			endcase
 
-			case(states[upper_bit_write +: 1])
-				2'b00:
-					if(was_taken | jumped)
-						states[upper_bit_write +: 1] <= 2'b01;
-					else
-						states[upper_bit_write +: 1] <= 2'b00;
-				2'b01:
-					if(was_taken | jumped)
-						states[upper_bit_write +: 1] <= 2'b10;
-					else
-						states[upper_bit_write +: 1] <= 2'b01;
-				2'b10:
-					if(was_taken | jumped)
-						states[upper_bit_write +: 1] <= 2'b11;
-					else
-						states[upper_bit_write +: 1] <= 2'b10;
-				2'b11:
-					if(!was_taken | !jumped)
-						states[upper_bit_write +: 1] <= 2'b11;
-					else
-						states[upper_bit_write +: 1] <= 2'b10;
-			endcase
+			// case(states[upper_bit_write +: 1])
+			// 	2'b00:
+			// 		if(was_taken | jumped)
+			// 			states[upper_bit_write +: 1] <= 2'b01;
+			// 		else
+			// 			states[upper_bit_write +: 1] <= 2'b00;
+			// 	2'b01:
+			// 		if(was_taken | jumped)
+			// 			states[upper_bit_write +: 1] <= 2'b10;
+			// 		else
+			// 			states[upper_bit_write +: 1] <= 2'b01;
+			// 	2'b10:
+			// 		if(was_taken | jumped)
+			// 			states[upper_bit_write +: 1] <= 2'b11;
+			// 		else
+			// 			states[upper_bit_write +: 1] <= 2'b10;
+			// 	2'b11:
+			// 		if(!was_taken | !jumped)
+			// 			states[upper_bit_write +: 1] <= 2'b11;
+			// 		else
+			// 			states[upper_bit_write +: 1] <= 2'b10;
+			// endcase
 		end
    	end
 
