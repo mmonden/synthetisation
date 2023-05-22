@@ -25,7 +25,9 @@ module branch_history_table #(
 			r_prediction <= 0;
 			states <= 0;
 		end
+	end
 
+	always@(*) begin
 		if(en == 1'b1) begin
 			upper_bit_write = write_addr/2;
 			upper_bit_read = read_addr/2;
