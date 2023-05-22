@@ -30,7 +30,7 @@ module control_unit(
 	parameter [1:0] SUB_OPCODE     = 2'b01;
 	parameter [1:0] R_TYPE_OPCODE  = 2'b10;
 
-    wire flush;
+    reg flush;
 
     always@(*) if(prediction) flush = ~prediction;
 
