@@ -3,6 +3,7 @@
 
 module control_unit(
       input  wire [6:0] opcode,
+      input wire prediction,
       input wire branchtaken,
       output reg  [1:0] alu_op,
       output reg        reg_dst,
@@ -28,6 +29,10 @@ module control_unit(
 	parameter [1:0] ADD_OPCODE     = 2'b00;
 	parameter [1:0] SUB_OPCODE     = 2'b01;
 	parameter [1:0] R_TYPE_OPCODE  = 2'b10;
+
+    wire flush;
+
+    always@(*) if(prediction) flush = ~prediction;
 
     // EXTRA control session5
     // always@(*) begin
@@ -82,7 +87,7 @@ module control_unit(
             branch    = 1'b0;
             alu_op    = ADD_OPCODE; //do we care??
             jump      = 1'b1;
-            flush_ID_EX = 1'b1;
+            flush_ID_EX = flush;
         end
 
         LOAD:begin
