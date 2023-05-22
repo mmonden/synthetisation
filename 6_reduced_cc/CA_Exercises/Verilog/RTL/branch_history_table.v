@@ -23,6 +23,13 @@ module branch_history_table #(
 	always@(*) begin
 		upper_bit_write <= write_addr/2;
 		upper_bit_read <= read_addr/2;
+
+		case(states[upper_bit_read -: 1])
+			2'b00:	r_prediction <= 1'b0;
+			2'b01:	r_prediction <= 1'b0;
+			2'b10:	r_prediction <= 1'b1;
+			2'b11:	r_prediction <= 1'b1;
+		endcase
 	end
 
 	always@(posedge clk, negedge arst_n)begin
@@ -32,14 +39,6 @@ module branch_history_table #(
 		end
 	
 		if(en == 1'b1) begin
-			case(states[upper_bit_read -: 1])
-				2'b00:	r_prediction <= 1'b0;
-				2'b01:	r_prediction <= 1'b0;
-				2'b10:	r_prediction <= 1'b1;
-				2'b11:	r_prediction <= 1'b1;
-				// default:	r_prediction <= 1'b0;
-			endcase
-
 			case(states[upper_bit_write -: 1])
 				2'b00:
 					if(was_taken | jumped)
