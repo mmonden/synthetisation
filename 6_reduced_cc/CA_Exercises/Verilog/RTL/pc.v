@@ -40,7 +40,7 @@ module pc#(
 
 	always@(*) pc_src = zero_flag & branch;
 	always@(*) was_taken = zero_flag & branch;
-	always@(*) take_prediction = (|predicted_pc) & predicted_pc;
+	always@(*) take_prediction = (|predicted_pc) & prediction;
 
 	mux_2#(
 		.DATA_W(DATA_W)

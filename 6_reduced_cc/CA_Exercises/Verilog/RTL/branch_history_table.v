@@ -12,10 +12,12 @@ module branch_history_table #(
 		input wire	[LOWER - 1:0] write_addr,
 		input wire 	was_taken,
 		input wire	jumped,
-		
+
 		output reg	prediction
 	);
 	integer read_row, write_row;
+
+	reg r_prediction;
 
 	reg [1:0] state_row0, state_row1, state_row2, state_row3, state_row4, state_row5, state_row6, state_row7, state_row8, state_row9;
 	reg [1:0] state_row10, state_row11, state_row12, state_row13, state_row14, state_row15, state_row16, state_row17, state_row18, state_row19;
@@ -63,38 +65,38 @@ module branch_history_table #(
 	always@(posedge clk)begin
 		if(en == 1'b1) begin
 			case(read_row)
-				0:	prediction <= state_row0[1];
-				1:	prediction <= state_row1[1];
-				2:	prediction <= state_row2[1];
-				3:	prediction <= state_row3[1];
-				4:	prediction <= state_row4[1];
-				5:	prediction <= state_row5[1];
-				6:	prediction <= state_row6[1];
-				7:	prediction <= state_row7[1];
-				8:	prediction <= state_row8[1];
-				9:	prediction <= state_row9[1];
-				10:	prediction <= state_row10[1];
-				11:	prediction <= state_row11[1];
-				12:	prediction <= state_row12[1];
-				13:	prediction <= state_row13[1];
-				14:	prediction <= state_row14[1];
-				15:	prediction <= state_row15[1];
-				16:	prediction <= state_row16[1];
-				17:	prediction <= state_row17[1];
-				18:	prediction <= state_row18[1];
-				19:	prediction <= state_row19[1];
-				20:	prediction <= state_row20[1];
-				21:	prediction <= state_row21[1];
-				22:	prediction <= state_row22[1];
-				23:	prediction <= state_row23[1];
-				24:	prediction <= state_row24[1];
-				25:	prediction <= state_row25[1];
-				26:	prediction <= state_row26[1];
-				27:	prediction <= state_row27[1];
-				28:	prediction <= state_row28[1];
-				29:	prediction <= state_row29[1];
-				30:	prediction <= state_row30[1];
-				31:	prediction <= state_row31[1];
+				0:	r_prediction <= state_row0[1];
+				1:	r_prediction <= state_row1[1];
+				2:	r_prediction <= state_row2[1];
+				3:	r_prediction <= state_row3[1];
+				4:	r_prediction <= state_row4[1];
+				5:	r_prediction <= state_row5[1];
+				6:	r_prediction <= state_row6[1];
+				7:	r_prediction <= state_row7[1];
+				8:	r_prediction <= state_row8[1];
+				9:	r_prediction <= state_row9[1];
+				10:	r_prediction <= state_row10[1];
+				11:	r_prediction <= state_row11[1];
+				12:	r_prediction <= state_row12[1];
+				13:	r_prediction <= state_row13[1];
+				14:	r_prediction <= state_row14[1];
+				15:	r_prediction <= state_row15[1];
+				16:	r_prediction <= state_row16[1];
+				17:	r_prediction <= state_row17[1];
+				18:	r_prediction <= state_row18[1];
+				19:	r_prediction <= state_row19[1];
+				20:	r_prediction <= state_row20[1];
+				21:	r_prediction <= state_row21[1];
+				22:	r_prediction <= state_row22[1];
+				23:	r_prediction <= state_row23[1];
+				24:	r_prediction <= state_row24[1];
+				25:	r_prediction <= state_row25[1];
+				26:	r_prediction <= state_row26[1];
+				27:	r_prediction <= state_row27[1];
+				28:	r_prediction <= state_row28[1];
+				29:	r_prediction <= state_row29[1];
+				30:	r_prediction <= state_row30[1];
+				31:	r_prediction <= state_row31[1];
 			endcase
 
 			if(was_taken | jumped)
@@ -169,4 +171,6 @@ module branch_history_table #(
 				endcase
 		end
    	end
+
+	assign prediction = r_prediction;
 endmodule
