@@ -5,26 +5,30 @@ module reg_arstn_en_IF_ID #(
 		input clk,
 		input arst_n,
 		input flush,
+		input [63:0] predicted_pc_IF,
 		input hazard,
 		input [31:0] din,
 		input [63:0] pc,
 		input en,
 		
 		output [31:0] dout,
-		output [63:0]		pcout
+		output [63:0]		pcout,
+		output [63:0] predicted_pc_IF_out
    );
 
    reg [31:0] r_inst, inst;
-   reg [63:0] r_pc, currpc;
+   reg [63:0] r_pc, currpc, r_pc_p, temp_pc_p;
 
    always@(posedge clk, negedge arst_n)begin
 		if(arst_n==0 || flush == 1)begin
 			r_inst <= PRESET_VAL;
 			r_pc <= PRESET_VAL;
+			r_pc_p <= PRESET_VAL;
 		end else begin
 			if(hazard == 0) begin
 				r_inst <= inst;
 				r_pc <= currpc;
+				r_pc_p <= temp_pc_p;
 			end
 		end
    end
@@ -33,14 +37,17 @@ module reg_arstn_en_IF_ID #(
 		if(en == 1'b1)begin
 			inst = din;
 			currpc = pc;
+			temp_pc_p = predicted_pc_IF;
 		end else begin
 			inst = r_inst;
 			currpc = r_pc;
+			temp_pc_p = r_pc_p;
 		end
    end
 
    assign dout = r_inst;
    assign pcout = r_pc;
+   assign predicted_pc_IF_out = r_pc_p;
 endmodule
 
 module reg_arstn_en_ID_EX #(

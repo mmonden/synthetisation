@@ -60,7 +60,7 @@ wire [1:0]	mux_control_A, mux_control_B, alu_op_tomux;
 wire [63:0]	mux_output_A, mux_output_B;
 
 wire flush_ID_EX, BHT_signal, prediction;
-wire [63:0] predicted_branch_pc;
+wire [63:0] predicted_branch_pc, predicted_pc_IF_ID;
 
 immediate_extend_unit immediate_extend_u(
 	 .instruction         (instruction_IF_ID),
@@ -156,13 +156,15 @@ reg_arstn_en_IF_ID #(
 	.clk        (clk),
 	.arst_n     (arst_n),
 	.flush		(flush_ID_EX),
+	.predicted_pc_IF (predicted_pc),
 	.hazard		(IF_IDWrite),
 	.din        (instruction),
 	.pc			(current_pc),
 	.en         (enable),
 
 	.dout       (instruction_IF_ID),
-	.pcout		(current_pc_IF_ID)
+	.pcout		(current_pc_IF_ID),
+	.predicted_pc_IF_out (predicted_pc_IF_ID)
 );
 
 reg_arstn_en_ID_EX #(
@@ -269,7 +271,7 @@ reg_arstn_en_MEM_WB #(
 
 control_unit control_unit(
 	.opcode   (instruction_IF_ID[6:0]),
-	.predicted_pc	(predicted_branch_pc),
+	.predicted_pc	(predicted_pc_IF_ID),
 	.prediction		(prediction),
 	.branchtaken(zero_flag_imposter_immediately_caculated_in_ID_stage & branch),
 	.alu_op   (alu_op_tomux),
