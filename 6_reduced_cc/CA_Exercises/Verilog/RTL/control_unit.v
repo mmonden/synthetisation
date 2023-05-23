@@ -3,7 +3,7 @@
 
 module control_unit(
       input  wire [6:0] opcode,
-      input wire [63:0] predicted_pc 
+      input wire [63:0] predicted_pc,
       input wire prediction,
       input wire branchtaken,
       output reg  [1:0] alu_op,
