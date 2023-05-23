@@ -156,7 +156,7 @@ reg_arstn_en_IF_ID #(
 	.clk        (clk),
 	.arst_n     (arst_n),
 	.flush		(flush_ID_EX),
-	.predicted_pc_IF (predicted_pc),
+	.predicted_pc_IF (predicted_branch_pc),
 	.hazard		(IF_IDWrite),
 	.din        (instruction),
 	.pc			(current_pc),
